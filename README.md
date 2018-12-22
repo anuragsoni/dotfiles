@@ -6,8 +6,7 @@ Clone this repo and run `install` to setup the symlinks.
 
 ## Neovim
 
-Pre-requisite: Vim 8+ or Neovim with support for packages.
-Check using `:echo has('packages')`. For more details, check `:help packages`.
+Pre-requisite: Vim 8+ or Neovim.
 
 I use [neovim](https://neovim.io/), but the configuration here should also
 work for vim8+.
