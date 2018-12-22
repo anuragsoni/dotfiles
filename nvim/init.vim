@@ -14,6 +14,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit'
 
 " Utilities
+Plug 'liuchengxu/vim-which-key'
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -41,8 +42,9 @@ call plug#end()
 
 " Basic Setup
 let mapleader = "\<space>"
-let maplocalleader="\<space>"
+let maplocalleader=","
 let g:mapleader = "\<space>"
+let g:maplocalleader = ","
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -154,6 +156,39 @@ augroup vimrc-ocaml-autopairs
   autocmd FileType ocaml let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
   autocmd FileType jbuild let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
 augroup END
+
+" Which-key setup
+set timeoutlen=500
+
+let g:which_key_map = {}
+
+let g:which_key_map.f = { 'name': '+file' }
+
+nnoremap <silent> <leader>fs :update<CR>
+let g:which_key_map.f.s = 'save-file'
+
+nnoremap <silent> <leader>fed :e $MYVIMRC<CR>
+let g:which_key_map.f.e = {'d': 'open-vimrc'}
+
+let g:which_key_map.b = {
+      \ 'name' : '+buffer',
+      \ '1' : ['b1', 'buffer 1'],
+      \ '2' : ['b2', 'buffer 2'],
+      \ 'd' : ['bd', 'delete-buffer'],
+      \ 'f' : ['bfirst', 'first-buffer'],
+      \ 'l' : ['blast', 'last-buffer'],
+      \ 'n' : ['bnext', 'next-buffer'],
+      \ 'p' : ['bprevious', 'previous-buffer'],
+      \ 'b' : ['CtrlPBuffer', 'list-buffers'],
+      \ }
+
+call which_key#register('<Space>', "g:which_key_map")
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+
+autocmd! FileType which_key
+autocmd  FileType which_key set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
 let s:opam_share_dir = system("opam config var share")
