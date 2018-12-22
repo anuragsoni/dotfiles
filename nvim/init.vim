@@ -182,6 +182,18 @@ let g:which_key_map.b = {
       \ 'b' : ['CtrlPBuffer', 'list-buffers'],
       \ }
 
+let g:which_key_map.w = {
+      \ 'name': '+windows',
+      \ 'd': ['<C-W>c', 'delete-window'],
+      \ '-' : ['<C-W>s', 'split-window-horizontally'],
+      \ '|' : ['<C-W>v', 'split-window-vertically'],
+      \ '=': ['<C-W>=', 'balance-window'],
+      \ 'H': ['<C-W>5<', 'expand-window-left'],
+      \ 'J': ['resize +5', 'expand-window-below'],
+      \ 'L': ['<C-W>5>', 'expand-window-right'],
+      \ 'K': ['resize -5', 'expand-window-up']
+      \ }
+
 call which_key#register('<Space>', "g:which_key_map")
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
