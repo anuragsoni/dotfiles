@@ -10,10 +10,15 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'tpope/vim-sensible'
 
 " Git utilities
+Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit'
 
 " Utilities
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'mhinz/vim-startify'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'liuchengxu/vim-which-key'
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
@@ -32,8 +37,9 @@ Plug 'rust-lang/rust.vim'
 
 " Autocompletion
 Plug 'ervandew/supertab'
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'copy/deoplete-ocaml'
+Plug 'slashmili/alchemist.vim'
 
 " Linter
 Plug 'w0rp/ale'
@@ -133,6 +139,13 @@ map <C-n> :NERDTreeToggle<CR>
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 
+" vim-signify
+let g:signify_vcs_list = ['git']
+let g:signify_skip_filetype = { 'journal': 1 }
+let g:signify_sign_add          = '│'
+let g:signify_sign_change       = '│'
+let g:signify_sign_changedelete = '│'
+
 " Ctrlp
 if executable('rg')
   set grepprg=rg
@@ -156,6 +169,14 @@ augroup vimrc-ocaml-autopairs
   autocmd FileType ocaml let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
   autocmd FileType jbuild let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
 augroup END
+
+" Snippets
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 " Which-key setup
 set timeoutlen=500
