@@ -208,6 +208,7 @@ augroup END
 
 " Snippets
 let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsExpandTrigger="<c-e>"
 let g:UltiSnipsJumpForwardTrigger="<c-k>"
 let g:UltiSnipsJumpBackwardTrigger="<c-j>"
 
