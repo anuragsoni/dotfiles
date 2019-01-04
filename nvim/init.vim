@@ -15,8 +15,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit'
 
 " Utilities
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'mhinz/vim-startify'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'liuchengxu/vim-which-key'
@@ -38,13 +38,14 @@ Plug 'rust-lang/rust.vim'
 
 " Autocompletion
 Plug 'ervandew/supertab'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-Plug 'copy/deoplete-ocaml'
-Plug 'slashmili/alchemist.vim'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-ultisnips'
 
 " Linter
 Plug 'w0rp/ale'
@@ -141,11 +142,15 @@ set lazyredraw
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-n> :NERDTreeToggle<CR>
 
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-
-" Language server
+" Autocompletion
+autocmd BufEnter * call ncm2#enable_for_buffer()
+au TextChangedI * call ncm2#auto_trigger()
+set completeopt=noinsert,menuone,noselect
+set shortmess+=c
+inoremap <c-c> <ESC>
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 set hidden
+
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ }
@@ -202,12 +207,9 @@ augroup vimrc-ocaml-autopairs
 augroup END
 
 " Snippets
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-j>"
 
 " Which-key setup
 set timeoutlen=500
