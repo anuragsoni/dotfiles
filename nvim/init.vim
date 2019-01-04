@@ -217,7 +217,11 @@ set timeoutlen=500
 
 let g:which_key_map = {}
 
-let g:which_key_map.f = { 'name': '+file' }
+let g:which_key_map.f = {
+      \ 'name' : '+file',
+      \ 'f' : ['Files', 'list-files'],
+      \ '=' : ['Neoformat', 'format-file']
+      \ }
 
 nnoremap <silent> <leader>fs :update<CR>
 let g:which_key_map.f.s = 'save-file'
@@ -234,7 +238,7 @@ let g:which_key_map.b = {
       \ 'l' : ['blast', 'last-buffer'],
       \ 'n' : ['bnext', 'next-buffer'],
       \ 'p' : ['bprevious', 'previous-buffer'],
-      \ 'b' : ['CtrlPBuffer', 'list-buffers'],
+      \ 'b' : ['Buffers', 'list-buffers'],
       \ }
 
 let g:which_key_map.w = {
@@ -247,6 +251,11 @@ let g:which_key_map.w = {
       \ 'J': ['resize +5', 'expand-window-below'],
       \ 'L': ['<C-W>5>', 'expand-window-right'],
       \ 'K': ['resize -5', 'expand-window-up']
+      \ }
+
+let g:which_key_map.p = {
+      \ 'name': '+project',
+      \ 'f': ['GFiles', 'list-project-files']
       \ }
 
 call which_key#register('<Space>', "g:which_key_map")
