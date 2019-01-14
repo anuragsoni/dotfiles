@@ -157,6 +157,16 @@ let g:LanguageClient_serverCommands = {
     \ }
 
 " Fzf
+
+if executable('rg')
+  command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+    \   <bang>0 ? fzf#vim#with_preview('up:60%')
+    \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+    \   <bang>0)
+endif
+
 let g:fzf_layout = { 'window': 'enew' }
 let g:fzf_layout = { 'window': '-tabnew' }
 let g:fzf_layout = { 'window': '10split enew' }
@@ -182,15 +192,6 @@ let g:signify_skip_filetype = { 'journal': 1 }
 let g:signify_sign_add          = '│'
 let g:signify_sign_change       = '│'
 let g:signify_sign_changedelete = '│'
-
-" Ctrlp
-if executable('rg')
-  set grepprg=rg
-  let g:ctrlp_user_command = 'rg %s --files --glob ""'
-  let g:ctrlp_use_caching = 0
-else
-  let g:ctrlp_clear_cache_on_exit = 0
-endif
 
 " polyglot
 let g:polyglot_disabled = ['ocaml', 'rust']
