@@ -149,7 +149,6 @@ au TextChangedI * call ncm2#auto_trigger()
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
 inoremap <c-c> <ESC>
-inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 set hidden
 
 let g:LanguageClient_serverCommands = {
