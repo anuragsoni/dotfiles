@@ -27,7 +27,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 
 " Nicer colors
-Plug 'morhetz/gruvbox'
+Plug 'lifepillar/vim-solarized8'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -107,10 +107,8 @@ if has('termguicolors')
   set termguicolors
 endif
 
-set background=light
-let g:gruvbox_bold=1
-let g:gruvbox_italic=1
-colorscheme gruvbox
+set background=dark
+colorscheme solarized8
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
