@@ -6,3 +6,5 @@ switch (uname -a)
 case "*Microsoft*"
   umask 22 # WSL needs umask value set for proper file permissions
 end
+
+set -x QT_AUTO_SCREEN_SCALE_FACTOR 1
