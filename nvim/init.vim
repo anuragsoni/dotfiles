@@ -25,9 +25,11 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'vim-airline/vim-airline'
 
 " Nicer colors
-Plug 'nightsense/snow'
+Plug 'nightsense/cosmic_latte'
+Plug 'nightsense/stellarized'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -107,8 +109,8 @@ if has('termguicolors')
   set termguicolors
 endif
 
-set background=light
-colorscheme snow
+set background=dark
+colorscheme cosmic_latte
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -116,19 +118,6 @@ set list listchars=tab:\ \ ,trail:·
 " better splits
 set splitbelow
 set splitright
-
-function! s:statusline_expr()
-  let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
-  let ro  = "%{&readonly ? '[RO] ' : ''}"
-  let ft  = "%{len(&filetype) ? '['.&filetype.'] ' : ''}"
-  let fug = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
-  let sep = ' %= '
-  let pos = ' %-12(%l : %c%V%) '
-  let pct = ' %P'
-
-  return '[%n] %F %<'.mod.ro.ft.fug.sep.pos.'%*'.pct
-endfunction
-let &statusline = s:statusline_expr()
 
 set number
 set cursorline
@@ -193,6 +182,9 @@ let g:polyglot_disabled = ['ocaml', 'rust']
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_rust_cargo_use_check = 1
+
+" Airline
+let g:airline_theme='cosmic_latte_dark'
 
 " Autopairs
 augroup vimrc-ocaml-autopairs
