@@ -26,10 +26,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " Nicer colors
-Plug 'nightsense/cosmic_latte'
-Plug 'nightsense/stellarized'
+Plug 'chriskempson/base16-vim'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -109,8 +109,7 @@ if has('termguicolors')
   set termguicolors
 endif
 
-set background=dark
-colorscheme cosmic_latte
+colorscheme base16-monokai
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -127,6 +126,9 @@ set lazyredraw
 " Nerdtree settings
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-n> :NERDTreeToggle<CR>
+
+" Airline
+let g:airline_theme='base16'
 
 " Autocompletion
 let g:deoplete#enable_at_startup = 1
@@ -182,9 +184,6 @@ let g:polyglot_disabled = ['ocaml', 'rust']
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_rust_cargo_use_check = 1
-
-" Airline
-let g:airline_theme='cosmic_latte_dark'
 
 " Autopairs
 augroup vimrc-ocaml-autopairs

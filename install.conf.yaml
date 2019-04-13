@@ -12,7 +12,6 @@
     ~/.config/fish/functions: fish/functions
     ~/.config/fish/completions: fish/completions
     ~/.tmux.conf:
-    ~/.asdf:
 
 - shell:
     - git submodule sync --recursive
