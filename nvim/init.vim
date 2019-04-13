@@ -10,7 +10,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'tpope/vim-sensible'
 
 " Git utilities
-Plug 'mhinz/vim-signify'
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit'
 
@@ -29,7 +29,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Nicer colors
-Plug 'chriskempson/base16-vim'
+Plug 'junegunn/seoul256.vim'
+Plug 'w0ng/vim-hybrid'
+Plug 'jnurmine/Zenburn'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -60,6 +62,7 @@ let g:maplocalleader = ","
 set tabstop=2
 set shiftwidth=2
 set expandtab
+set updatetime=100
 
 " Annoying temporary files
 set backupdir=/tmp//,.
@@ -109,7 +112,10 @@ if has('termguicolors')
   set termguicolors
 endif
 
-colorscheme base16-monokai
+let g:zenburn_alternate_Include = 1
+let g:zenburn_enable_TagHighlight=1
+let g:seoul256_srgb = 1
+colorscheme zenburn
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -128,7 +134,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 map <C-n> :NERDTreeToggle<CR>
 
 " Airline
-let g:airline_theme='base16'
+let g:airline_theme='zenburn'
 
 " Autocompletion
 let g:deoplete#enable_at_startup = 1
@@ -171,16 +177,15 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 " vim-signify
-let g:signify_vcs_list = ['git']
-let g:signify_skip_filetype = { 'journal': 1 }
-let g:signify_sign_add          = '│'
-let g:signify_sign_change       = '│'
-let g:signify_sign_changedelete = '│'
+let g:gitgutter_sign_added          = '│'
+let g:gitgutter_sign_modified       = '│'
+let g:gitgutter_sign_removed = '│'
 
 " polyglot
 let g:polyglot_disabled = ['ocaml', 'rust']
 
 " Ale
+let g:ale_completion_enabled = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_rust_cargo_use_check = 1
@@ -250,6 +255,32 @@ nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+if has('nvim')
+  " https://github.com/neovim/neovim/issues/2897#issuecomment-115464516
+  let g:terminal_color_0 = '#4e4e4e'
+  let g:terminal_color_1 = '#d68787'
+  let g:terminal_color_2 = '#5f865f'
+  let g:terminal_color_3 = '#d8af5f'
+  let g:terminal_color_4 = '#85add4'
+  let g:terminal_color_5 = '#d7afaf'
+  let g:terminal_color_6 = '#87afaf'
+  let g:terminal_color_7 = '#d0d0d0'
+  let g:terminal_color_8 = '#626262'
+  let g:terminal_color_9 = '#d75f87'
+  let g:terminal_color_10 = '#87af87'
+  let g:terminal_color_11 = '#ffd787'
+  let g:terminal_color_12 = '#add4fb'
+  let g:terminal_color_13 = '#ffafaf'
+  let g:terminal_color_14 = '#87d7d7'
+  let g:terminal_color_15 = '#e4e4e4'
+
+  set fillchars=vert:\|,fold:-
+  autocmd BufReadPost *
+    \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+endif
 
 " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
 let s:opam_share_dir = system("opam config var share")
