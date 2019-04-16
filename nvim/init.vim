@@ -44,10 +44,6 @@ Plug 'rust-lang/rust.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'copy/deoplete-ocaml'
 Plug 'ervandew/supertab'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 
 " Linter
 Plug 'w0rp/ale'
@@ -113,6 +109,7 @@ if has('termguicolors')
 endif
 
 let g:zenburn_alternate_Include = 1
+let g:zenburn_disable_Label_underline = 1
 let g:zenburn_enable_TagHighlight=1
 let g:seoul256_srgb = 1
 colorscheme zenburn
