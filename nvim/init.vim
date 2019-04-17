@@ -15,8 +15,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit'
 
 " Utilities
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'mhinz/vim-startify'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'liuchengxu/vim-which-key'
@@ -42,13 +42,14 @@ Plug 'rust-lang/rust.vim'
 
 " Autocompletion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'copy/deoplete-ocaml'
-Plug 'ervandew/supertab'
 
 " Linter
 Plug 'w0rp/ale'
 
 call plug#end()
+
+" Deoplete
+let g:deoplete#enable_at_startup = 1
 
 " Basic Setup
 let mapleader = "\<space>"
@@ -133,16 +134,6 @@ map <C-n> :NERDTreeToggle<CR>
 " Airline
 let g:airline_theme='zenburn'
 
-" Autocompletion
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#ignore_sources = {}
-let g:deoplete#ignore_sources.ocaml = ['buffer', 'around', 'member', 'tag']
-
-
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ }
-
 " Fzf
 
 if executable('rg')
@@ -182,7 +173,12 @@ let g:gitgutter_sign_removed = '│'
 let g:polyglot_disabled = ['ocaml', 'rust']
 
 " Ale
+let g:ale_completion_delay = 100
 let g:ale_completion_enabled = 1
+let g:ale_ocaml_ols_executable = 'ocamlmerlin-lsp'
+let g:ale_fixers = {
+      \   'ocaml': ['ocamlformat']
+      \ }
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_rust_cargo_use_check = 1
@@ -193,11 +189,6 @@ augroup vimrc-ocaml-autopairs
   autocmd FileType ocaml let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
   autocmd FileType jbuild let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
 augroup END
-
-" Snippets
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " Which-key setup
 set timeoutlen=500
