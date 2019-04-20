@@ -1,0 +1,10 @@
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+if [ -e /home/asoni/.nix-profile/etc/profile.d/nix.sh ]; then . /home/asoni/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+

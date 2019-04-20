@@ -173,7 +173,6 @@ let g:gitgutter_sign_removed = '│'
 let g:polyglot_disabled = ['ocaml', 'rust']
 
 " Ale
-let g:ale_completion_delay = 100
 let g:ale_completion_enabled = 1
 let g:ale_ocaml_ols_executable = 'ocamlmerlin-lsp'
 let g:ale_fixers = {

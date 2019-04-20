@@ -12,6 +12,8 @@
     ~/.config/fish/functions: fish/functions
     ~/.config/fish/completions: fish/completions
     ~/.tmux.conf:
+    ~/.zshrc: zsh/zshrc
+    ~/.zprofile: zsh/zprofile
 
 - shell:
     - git submodule sync --recursive
