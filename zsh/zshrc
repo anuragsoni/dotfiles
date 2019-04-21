@@ -1,14 +1,18 @@
 source "$HOME/.zgen/zgen.zsh"
 
 if ! zgen saved; then
-  zgen oh-my-zsh
-  zgen oh-my-zsh plugins/git
-  zgen oh-my-zsh plugins/command-not-found
+
+  zgen prezto editor key-bindings 'emacs'
+  zgen prezto '*:*' color 'yes'
+
+  zgen prezto
 
   zgen load mafredri/zsh-async
   zgen load sindresorhus/pure
 
-  zgen load zsh-users/zsh-syntax-highlighting
+  zgen load ael-code/zsh-colored-man-pages
+  zgen load zdharma/fast-syntax-highlighting
+  zgen load zdharma/history-search-multi-word
   zgen save
 fi
 
