@@ -3,16 +3,16 @@ source "$HOME/.zgen/zgen.zsh"
 if ! zgen saved; then
 
   zgen prezto editor key-bindings 'emacs'
+  zgen prezto prompt theme 'pure'
   zgen prezto '*:*' color 'yes'
 
   zgen prezto
 
-  zgen load mafredri/zsh-async
-  zgen load sindresorhus/pure
-
   zgen load ael-code/zsh-colored-man-pages
   zgen load zdharma/fast-syntax-highlighting
   zgen load zdharma/history-search-multi-word
+  zgen load zsh-users/zsh-autosuggestions
+  zgen load supercrabtree/k
   zgen save
 fi
 
