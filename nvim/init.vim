@@ -19,14 +19,12 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'mhinz/vim-startify'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'liuchengxu/vim-which-key'
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " Nicer colors
 Plug 'junegunn/seoul256.vim'
@@ -42,6 +40,9 @@ Plug 'rust-lang/rust.vim'
 
 " Autocompletion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'lighttiger2505/deoplete-vim-lsp'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
 
 " Linter
 Plug 'w0rp/ale'
@@ -134,35 +135,15 @@ map <C-n> :NERDTreeToggle<CR>
 " Airline
 let g:airline_theme='zenburn'
 
-" Fzf
+" CtrlP
 
 if executable('rg')
-  command! -bang -nargs=* Rg
-    \ call fzf#vim#grep(
-    \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-    \   <bang>0 ? fzf#vim#with_preview('up:60%')
-    \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-    \   <bang>0)
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+else
+  let g:ctrlp_clear_cache_on_exit = 0
 endif
-
-let g:fzf_layout = { 'window': 'enew' }
-let g:fzf_layout = { 'window': '-tabnew' }
-let g:fzf_layout = { 'window': '10split enew' }
-
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
 
 " vim-signify
 let g:gitgutter_sign_added          = '│'
@@ -173,7 +154,6 @@ let g:gitgutter_sign_removed = '│'
 let g:polyglot_disabled = ['ocaml', 'rust']
 
 " Ale
-let g:ale_completion_enabled = 1
 let g:ale_ocaml_ols_executable = 'ocamlmerlin-lsp'
 let g:ale_fixers = {
       \   'ocaml': ['ocamlformat']
@@ -189,59 +169,14 @@ augroup vimrc-ocaml-autopairs
   autocmd FileType jbuild let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
 augroup END
 
-" Which-key setup
-set timeoutlen=500
-
-let g:which_key_map = {}
-
-let g:which_key_map.f = {
-      \ 'name' : '+file',
-      \ 'f' : ['Files', 'list-files'],
-      \ '=' : ['Neoformat', 'format-file']
-      \ }
-
-nnoremap <silent> <leader>fs :update<CR>
-let g:which_key_map.f.s = 'save-file'
-
-nnoremap <silent> <leader>fed :e $MYVIMRC<CR>
-let g:which_key_map.f.e = {'d': 'open-vimrc'}
-
-let g:which_key_map.b = {
-      \ 'name' : '+buffer',
-      \ '1' : ['b1', 'buffer 1'],
-      \ '2' : ['b2', 'buffer 2'],
-      \ 'd' : ['bd', 'delete-buffer'],
-      \ 'f' : ['bfirst', 'first-buffer'],
-      \ 'l' : ['blast', 'last-buffer'],
-      \ 'n' : ['bnext', 'next-buffer'],
-      \ 'p' : ['bprevious', 'previous-buffer'],
-      \ 'b' : ['Buffers', 'list-buffers'],
-      \ }
-
-let g:which_key_map.w = {
-      \ 'name': '+windows',
-      \ 'd': ['<C-W>c', 'delete-window'],
-      \ '-' : ['<C-W>s', 'split-window-horizontally'],
-      \ '|' : ['<C-W>v', 'split-window-vertically'],
-      \ '=': ['<C-W>=', 'balance-window'],
-      \ 'H': ['<C-W>5<', 'expand-window-left'],
-      \ 'J': ['resize +5', 'expand-window-below'],
-      \ 'L': ['<C-W>5>', 'expand-window-right'],
-      \ 'K': ['resize -5', 'expand-window-up']
-      \ }
-
-let g:which_key_map.p = {
-      \ 'name': '+project',
-      \ 'f': ['GFiles', 'list-project-files']
-      \ }
-
-call which_key#register('<Space>', "g:which_key_map")
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
-
-autocmd! FileType which_key
-autocmd  FileType which_key set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+" LSP
+if executable('ocamlmerlin-lsp')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'ocaml-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'opam config exec -- ocamlmerlin-lsp --stdio']},
+        \ 'whitelist': ['ocaml']
+        \ })
+endif
 
 if has('nvim')
   " https://github.com/neovim/neovim/issues/2897#issuecomment-115464516
