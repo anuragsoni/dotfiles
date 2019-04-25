@@ -40,9 +40,7 @@ Plug 'rust-lang/rust.vim'
 
 " Autocompletion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'lighttiger2505/deoplete-vim-lsp'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
+Plug 'ervandew/supertab'
 
 " Linter
 Plug 'w0rp/ale'
@@ -51,6 +49,11 @@ call plug#end()
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
+
+" Ultisnips
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Basic Setup
 let mapleader = "\<space>"
@@ -168,15 +171,6 @@ augroup vimrc-ocaml-autopairs
   autocmd FileType ocaml let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
   autocmd FileType jbuild let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
 augroup END
-
-" LSP
-if executable('ocamlmerlin-lsp')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'ocaml-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'opam config exec -- ocamlmerlin-lsp --stdio']},
-        \ 'whitelist': ['ocaml']
-        \ })
-endif
 
 if has('nvim')
   " https://github.com/neovim/neovim/issues/2897#issuecomment-115464516
