@@ -8,3 +8,6 @@ fi
 
 if [ -e /home/asoni/.nix-profile/etc/profile.d/nix.sh ]; then . /home/asoni/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
+if [ -d "$HOME/.cargo/bin" ] ; then
+    PATH="$HOME/.cargo/bin:$PATH"
+fi

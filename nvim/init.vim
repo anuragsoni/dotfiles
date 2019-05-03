@@ -27,6 +27,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 
 " Nicer colors
+Plug 'KeitaNakamura/neodark.vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'w0ng/vim-hybrid'
 Plug 'jnurmine/Zenburn'
