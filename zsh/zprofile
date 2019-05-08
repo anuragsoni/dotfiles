@@ -11,3 +11,7 @@ if [ -e /home/asoni/.nix-profile/etc/profile.d/nix.sh ]; then . /home/asoni/.nix
 if [ -d "$HOME/.cargo/bin" ] ; then
     PATH="$HOME/.cargo/bin:$PATH"
 fi
+
+if [ -d "/snap/bin" ] ; then
+  PATH="/snap/bin:$PATH"
+fi
