@@ -13,6 +13,7 @@ Plug 'tpope/vim-sensible'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit'
+Plug 'rhysd/git-messenger.vim'
 
 " Utilities
 Plug 'SirVer/ultisnips'
@@ -27,9 +28,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 
 " Nicer colors
+Plug 'cocopon/iceberg.vim'
 Plug 'KeitaNakamura/neodark.vim'
-Plug 'junegunn/seoul256.vim'
-Plug 'w0ng/vim-hybrid'
 Plug 'jnurmine/Zenburn'
 
 " Language plugins
@@ -117,8 +117,7 @@ endif
 let g:zenburn_alternate_Include = 1
 let g:zenburn_disable_Label_underline = 1
 let g:zenburn_enable_TagHighlight=1
-let g:seoul256_srgb = 1
-colorscheme zenburn
+colorscheme iceberg
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -137,7 +136,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 map <C-n> :NERDTreeToggle<CR>
 
 " Airline
-let g:airline_theme='zenburn'
+let g:airline_theme='iceberg'
 
 " CtrlP
 
