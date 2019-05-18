@@ -13,7 +13,6 @@ Plug 'tpope/vim-sensible'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit'
-Plug 'rhysd/git-messenger.vim'
 
 " Utilities
 Plug 'SirVer/ultisnips'
@@ -28,9 +27,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 
 " Nicer colors
+Plug 'lifepillar/vim-solarized8'
 Plug 'cocopon/iceberg.vim'
-Plug 'KeitaNakamura/neodark.vim'
-Plug 'jnurmine/Zenburn'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -114,10 +112,8 @@ if has('termguicolors')
   set termguicolors
 endif
 
-let g:zenburn_alternate_Include = 1
-let g:zenburn_disable_Label_underline = 1
-let g:zenburn_enable_TagHighlight=1
-colorscheme iceberg
+set background=light
+colorscheme solarized8_high
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -134,9 +130,6 @@ set lazyredraw
 " Nerdtree settings
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-n> :NERDTreeToggle<CR>
-
-" Airline
-let g:airline_theme='iceberg'
 
 " CtrlP
 
