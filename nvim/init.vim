@@ -28,6 +28,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 
 " Nicer colors
 Plug 'lifepillar/vim-solarized8'
+Plug 'morhetz/gruvbox'
 Plug 'cocopon/iceberg.vim'
 
 " Language plugins
@@ -113,7 +114,10 @@ if has('termguicolors')
 endif
 
 set background=light
-colorscheme solarized8_high
+let g:gruvbox_italic=1
+let g:gruvbox_bold=1
+let g:gruvbox_contrast_light="hard"
+colorscheme gruvbox
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
