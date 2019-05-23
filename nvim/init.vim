@@ -114,10 +114,7 @@ if has('termguicolors')
 endif
 
 set background=light
-let g:gruvbox_italic=1
-let g:gruvbox_bold=1
-let g:gruvbox_contrast_light="hard"
-colorscheme gruvbox
+colorscheme solarized8_high
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
