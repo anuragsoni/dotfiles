@@ -27,9 +27,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 
 " Nicer colors
-Plug 'lifepillar/vim-solarized8'
-Plug 'morhetz/gruvbox'
-Plug 'cocopon/iceberg.vim'
+Plug 'chriskempson/base16-vim'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -112,9 +110,7 @@ if has('termguicolors')
   set termguicolors
 endif
 
-set background=dark
-let g:solarized_extra_hi_groups=1
-colorscheme solarized8
+colorscheme base16-tomorrow-night-eighties
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·

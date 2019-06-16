@@ -15,3 +15,5 @@ fi
 if [ -d "/snap/bin" ] ; then
   PATH="/snap/bin:$PATH"
 fi
+
+export PLASMA_USE_QT_SCALING=1
