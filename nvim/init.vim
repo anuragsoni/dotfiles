@@ -27,7 +27,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 
 " Nicer colors
-Plug 'chriskempson/base16-vim'
+Plug 'mhartington/oceanic-next'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -110,7 +110,9 @@ if has('termguicolors')
   set termguicolors
 endif
 
-colorscheme base16-tomorrow-night-eighties
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+colorscheme OceanicNext
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
