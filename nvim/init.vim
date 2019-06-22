@@ -35,6 +35,7 @@ Plug 'let-def/ocp-indent-vim'
 Plug 'rgrinberg/vim-ocaml'
 Plug 'sheerun/vim-polyglot'
 Plug 'rust-lang/rust.vim'
+Plug 'vim-erlang/vim-erlang-runtime'
 
 " Autocompletion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }

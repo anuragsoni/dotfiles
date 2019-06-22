@@ -2,11 +2,10 @@ source "$HOME/.zgen/zgen.zsh"
 
 if ! zgen saved; then
 
-  zgen prezto editor key-bindings 'emacs'
-  zgen prezto prompt theme 'pure'
-  zgen prezto '*:*' color 'yes'
+  zgen oh-my-zsh
 
-  zgen prezto
+  zgen load mafredri/zsh-async
+  zgen load sindresorhus/pure
 
   zgen load ael-code/zsh-colored-man-pages
   zgen load zdharma/fast-syntax-highlighting
@@ -24,3 +23,7 @@ alias icat="kitty +kitten icat"
 alias d="kitty +kitten diff"
 alias gdiff="git difftool --no-symlinks --dir-diff"
 kitty + complete setup zsh | source /dev/stdin
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
