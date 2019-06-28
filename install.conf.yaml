@@ -15,6 +15,7 @@
     ~/.zshrc: zsh/zshrc
     ~/.zprofile: zsh/zprofile
     ~/.config/kitty: kitty
+    ~/.config/alacritty: alacritty
 
 - shell:
     - git submodule sync --recursive
