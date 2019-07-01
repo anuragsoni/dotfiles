@@ -151,6 +151,7 @@ let g:polyglot_disabled = ['ocaml', 'rust']
 
 " Ale
 let g:ale_ocaml_ols_executable = 'ocamlmerlin-lsp'
+let g:ale_linters = {'rust': ['rls']}
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \   'ocaml': ['ocamlformat']
