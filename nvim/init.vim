@@ -22,13 +22,12 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
-Plug 'liuchengxu/eleline.vim'
+Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Nicer colors
-Plug 'mhartington/oceanic-next'
-Plug 'liuchengxu/space-vim-theme'
+Plug 'gruvbox-community/gruvbox'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -114,11 +113,21 @@ if has('termguicolors')
 endif
 
 " Status Line
-let g:eleline_powerline_fonts = 1
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'method' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head',
+      \   'method': 'NearestMethodOrFunction'
+      \ },
+      \ }
 
-set background=dark
 let g:startify_fortune_use_unicode = 1
-colorscheme space_vim_theme
+set background=light
+colorscheme gruvbox
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -156,9 +165,18 @@ let g:ale_lint_on_enter = 0
 let g:ale_rust_cargo_use_check = 1
 
 " Tags
+let g:vista_executive_for = {
+      \ 'ocaml': 'ale'
+      \ }
 function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " FZF
 let g:fzf_layout = { 'window': 'enew' }
@@ -178,15 +196,6 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
-
-
-set statusline+=%{NearestMethodOrFunction()}
-
-" By default vista.vim never run if you don't call it explicitly.
-"
-" If you want to show the nearest function in your statusline automatically,
-" you can add the following line to your vimrc 
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " Autopairs
 augroup vimrc-ocaml-autopairs
@@ -227,4 +236,3 @@ for tool in s:opam_packages
   endif
 endfor
 " ## end of OPAM user-setup addition for vim / base ## keep this line
-
