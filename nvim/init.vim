@@ -127,6 +127,7 @@ let g:lightline = {
 
 let g:startify_fortune_use_unicode = 1
 set background=light
+let g:gruvbox_italic=1
 colorscheme gruvbox
 
 " show trailing spaces
