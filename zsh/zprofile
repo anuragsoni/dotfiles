@@ -16,4 +16,8 @@ if [ -d "/snap/bin" ] ; then
   PATH="/snap/bin:$PATH"
 fi
 
+if [ -d "$HOME/.yarn/bin" ] ; then
+  PATH="$HOME/.yarn/bin:$PATH"
+fi
+
 export PLASMA_USE_QT_SCALING=1
