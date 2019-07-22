@@ -40,7 +40,6 @@ Plug 'vim-erlang/vim-erlang-runtime'
 
 " Autocompletion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'ervandew/supertab'
 
 " Linter
 Plug 'w0rp/ale'
@@ -49,6 +48,7 @@ call plug#end()
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
+inoremap <silent><expr> <TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<c-e>"
