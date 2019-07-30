@@ -8,9 +8,6 @@
 - link:
     ~/.gitconfig:
     ~/.config/nvim:
-    ~/.config/fish/config.fish: fish/config.fish
-    ~/.config/fish/functions: fish/functions
-    ~/.config/fish/completions: fish/completions
     ~/.tmux.conf:
     ~/.zshrc: zsh/zshrc
     ~/.zprofile: zsh/zprofile
