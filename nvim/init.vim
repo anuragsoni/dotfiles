@@ -28,7 +28,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Nicer colors
-Plug 'gruvbox-community/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -42,7 +42,7 @@ Plug 'vim-erlang/vim-erlang-runtime'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Linter
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 
 call plug#end()
 
@@ -126,7 +126,7 @@ let g:lightline.component_type = {
       \     'linter_errors': 'error',
       \     'linter_ok': 'left',
       \ }
-let g:lightline.colorscheme = 'gruvbox'
+let g:lightline.colorscheme = 'PaperColor'
 let g:lightline.active = {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
@@ -135,9 +135,8 @@ let g:lightline.active = {
 let g:lightline.component_function = { 'gitbranch': 'fugitive#head' }
 
 let g:startify_fortune_use_unicode = 1
-set background=dark
-let g:gruvbox_italic=1
-colorscheme gruvbox
+set background=light
+colorscheme PaperColor
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -160,12 +159,17 @@ let g:gitgutter_sign_added          = '│'
 let g:gitgutter_sign_modified       = '│'
 let g:gitgutter_sign_removed = '│'
 
+if has('nvim-0.3.2') || has("patch-8.1.0360")
+  set diffopt+=internal,algorithm:patience
+endif
+
 " polyglot
 let g:polyglot_disabled = ['ocaml', 'rust']
 
 " Ale
 let g:ale_ocaml_ols_executable = 'ocamlmerlin-lsp'
 let g:ale_linters = {'rust': ['rls']}
+" let g:ale_rust_rls_executable = 'ra_lsp_server'
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \   'ocaml': ['ocamlformat']
