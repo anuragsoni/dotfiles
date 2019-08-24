@@ -28,7 +28,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Nicer colors
-Plug 'NLKNguyen/papercolor-theme'
+Plug 'arcticicestudio/nord-vim'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -126,7 +126,7 @@ let g:lightline.component_type = {
       \     'linter_errors': 'error',
       \     'linter_ok': 'left',
       \ }
-let g:lightline.colorscheme = 'PaperColor'
+let g:lightline.colorscheme = 'nord'
 let g:lightline.active = {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
@@ -135,8 +135,10 @@ let g:lightline.active = {
 let g:lightline.component_function = { 'gitbranch': 'fugitive#head' }
 
 let g:startify_fortune_use_unicode = 1
-set background=light
-colorscheme PaperColor
+let g:nord_cursor_line_number_background = 1
+let g:nord_italic = 1
+let g:nord_underline = 1
+colorscheme nord
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·

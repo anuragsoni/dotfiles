@@ -48,6 +48,7 @@
 
 [core]
   editor = nvim
+  excludesfile = ~/.gitignore
 
 [push]
   default = simple
