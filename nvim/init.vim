@@ -28,7 +28,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Nicer colors
-Plug 'cormacrelf/vim-colors-github'
+Plug 'lifepillar/vim-solarized8'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -126,7 +126,7 @@ let g:lightline.component_type = {
       \     'linter_errors': 'error',
       \     'linter_ok': 'left',
       \ }
-let g:lightline.colorscheme = 'github'
+let g:lightline.colorscheme = 'solarized'
 let g:lightline.active = {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
@@ -135,7 +135,9 @@ let g:lightline.active = {
 let g:lightline.component_function = { 'gitbranch': 'fugitive#head' }
 
 let g:startify_fortune_use_unicode = 1
-colorscheme github
+set background=light
+let g:solarized_extra_hi_groups=1
+colorscheme solarized8
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·

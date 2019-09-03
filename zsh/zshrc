@@ -4,6 +4,8 @@ if ! zgen saved; then
 
   zgen oh-my-zsh
 
+  zgen oh-my-zsh plugins/asdf
+
   zgen load mafredri/zsh-async
   zgen load sindresorhus/pure
 
