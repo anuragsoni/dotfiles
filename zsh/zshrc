@@ -21,4 +21,10 @@ fi
 # opam configuration
 test -r /home/asoni/.opam/opam-init/init.zsh && . /home/asoni/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
+# Kitty Helpers
+alias icat="kitty +kitten icat"
+alias d="kitty +kitten diff"
+alias gdiff="git difftool --no-symlinks --dir-diff"
+kitty + complete setup zsh | source /dev/stdin
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

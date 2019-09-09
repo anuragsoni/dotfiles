@@ -9,6 +9,7 @@
     ~/.gitconfig:
     ~/.gitignore:
     ~/.config/nvim:
+    ~/.config/kitty:
     ~/.tmux.conf:
     ~/.zshrc: zsh/zshrc
     ~/.zprofile: zsh/zprofile
