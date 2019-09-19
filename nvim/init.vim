@@ -17,7 +17,6 @@ Plug 'jreybert/vimagit'
 " Utilities
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'mhinz/vim-startify'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
@@ -29,6 +28,7 @@ Plug 'junegunn/fzf.vim'
 
 " Nicer colors
 Plug 'lifepillar/vim-solarized8'
+Plug 'sainnhe/gruvbox-material'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -126,7 +126,7 @@ let g:lightline.component_type = {
       \     'linter_errors': 'error',
       \     'linter_ok': 'left',
       \ }
-let g:lightline.colorscheme = 'solarized'
+let g:lightline.colorscheme = 'gruvbox_material'
 let g:lightline.active = {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
@@ -134,10 +134,9 @@ let g:lightline.active = {
       \ }
 let g:lightline.component_function = { 'gitbranch': 'fugitive#head' }
 
-let g:startify_fortune_use_unicode = 1
 set background=light
 let g:solarized_extra_hi_groups=1
-colorscheme solarized8
+colorscheme gruvbox-material
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
