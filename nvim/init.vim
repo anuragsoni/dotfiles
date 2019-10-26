@@ -21,14 +21,13 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
-Plug 'itchyny/lightline.vim'
-Plug 'maximbaz/lightline-ale'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Nicer colors
-Plug 'lifepillar/vim-solarized8'
-Plug 'sainnhe/gruvbox-material'
+Plug 'chriskempson/base16-vim'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -112,31 +111,7 @@ if has('termguicolors')
   set termguicolors
 endif
 
-" Status Line
-let g:lightline = {}
-let g:lightline.component_expand = {
-      \  'linter_checking': 'lightline#ale#checking',
-      \  'linter_warnings': 'lightline#ale#warnings',
-      \  'linter_errors': 'lightline#ale#errors',
-      \  'linter_ok': 'lightline#ale#ok',
-      \ }
-let g:lightline.component_type = {
-      \     'linter_checking': 'left',
-      \     'linter_warnings': 'warning',
-      \     'linter_errors': 'error',
-      \     'linter_ok': 'left',
-      \ }
-let g:lightline.colorscheme = 'gruvbox_material'
-let g:lightline.active = {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-      \   'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]]
-      \ }
-let g:lightline.component_function = { 'gitbranch': 'fugitive#head' }
-
-set background=light
-let g:solarized_extra_hi_groups=1
-colorscheme gruvbox-material
+colorscheme base16-tomorrow-night
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -169,7 +144,6 @@ let g:polyglot_disabled = ['ocaml', 'rust']
 " Ale
 let g:ale_ocaml_ols_executable = 'ocamlmerlin-lsp'
 let g:ale_linters = {'rust': ['rls']}
-" let g:ale_rust_rls_executable = 'ra_lsp_server'
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \   'ocaml': ['ocamlformat']
