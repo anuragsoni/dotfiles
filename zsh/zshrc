@@ -6,10 +6,8 @@ if ! zgen saved; then
 
   zgen oh-my-zsh plugins/asdf
 
-  zgen load mafredri/zsh-async
-  zgen load sindresorhus/pure
+  zgen load miekg/lean
 
-  zgen load zdharma/zsh-diff-so-fancy
   zgen load ael-code/zsh-colored-man-pages
   zgen load zdharma/fast-syntax-highlighting
   zgen load zdharma/history-search-multi-word
