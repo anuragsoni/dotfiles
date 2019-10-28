@@ -12,7 +12,6 @@
     ~/.tmux.conf:
     ~/.zshrc: zsh/zshrc
     ~/.zprofile: zsh/zprofile
-    ~/.config/fish:
 
 - shell:
     - git submodule sync --recursive
