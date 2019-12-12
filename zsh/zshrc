@@ -6,7 +6,7 @@ if ! zgen saved; then
 
   zgen oh-my-zsh plugins/asdf
 
-  zgen load miekg/lean
+  zgen load geometry-zsh/geometry
 
   zgen load ael-code/zsh-colored-man-pages
   zgen load zdharma/fast-syntax-highlighting
@@ -18,5 +18,3 @@ fi
 
 # opam configuration
 test -r /home/asoni/.opam/opam-init/init.zsh && . /home/asoni/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

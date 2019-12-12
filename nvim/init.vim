@@ -15,6 +15,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit'
 
 " Utilities
+Plug 'ncm2/float-preview.nvim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
@@ -27,8 +28,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Nicer colors
-Plug 'chriskempson/base16-vim'
-Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/gruvbox-material'
 
 " Language plugins
@@ -49,6 +48,8 @@ Plug 'neomake/neomake'
 
 call plug#end()
 
+let g:float_preview#docked = 0
+
 " Deoplete
 " other completion sources suggested to disable
 let g:deoplete#ignore_sources = {}
@@ -57,6 +58,7 @@ let g:deoplete#ignore_sources.ocaml = ['buffer', 'around', 'member', 'tag']
 let g:deoplete#auto_complete_delay = 0
 let g:deoplete#enable_at_startup = 1
 inoremap <silent><expr> <TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+set completeopt-=preview
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<c-e>"
@@ -179,7 +181,6 @@ augroup END
 
 " Neomake
 call neomake#configure#automake('w')
-let g:neomake_open_list = 2
 
 " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
 let s:opam_share_dir = system("opam config var share")
