@@ -15,6 +15,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit'
 
 " Utilities
+Plug 'edkolev/tmuxline.vim'
 Plug 'ncm2/float-preview.nvim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -29,6 +30,9 @@ Plug 'junegunn/fzf.vim'
 
 " Nicer colors
 Plug 'sainnhe/gruvbox-material'
+Plug 'sainnhe/edge'
+Plug 'sainnhe/vim-color-forest-night'
+Plug 'jnurmine/Zenburn'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -48,6 +52,8 @@ Plug 'neomake/neomake'
 
 call plug#end()
 
+let g:tmuxline_powerline_separators = 0
+let g:tmuxline_preset = 'minimal'
 let g:float_preview#docked = 0
 
 " Deoplete
@@ -122,8 +128,8 @@ if has('termguicolors')
   set termguicolors
 endif
 
-set background=light
-colorscheme gruvbox-material
+set background=dark
+colorscheme edge
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
