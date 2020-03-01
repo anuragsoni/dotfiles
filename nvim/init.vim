@@ -12,13 +12,9 @@ Plug 'tpope/vim-sensible'
 " Git utilities
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-Plug 'jreybert/vimagit'
 
 " Utilities
 Plug 'edkolev/tmuxline.vim'
-Plug 'ncm2/float-preview.nvim'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
@@ -30,46 +26,45 @@ Plug 'junegunn/fzf.vim'
 
 " Nicer colors
 Plug 'sainnhe/gruvbox-material'
-Plug 'sainnhe/edge'
-Plug 'sainnhe/vim-color-forest-night'
-Plug 'jnurmine/Zenburn'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
-Plug 'let-def/ocp-indent-vim'
 Plug 'ocaml/vim-ocaml'
-Plug 'wlangstroth/vim-racket'
-Plug 'sheerun/vim-polyglot'
-Plug 'rust-lang/rust.vim'
-Plug 'vim-erlang/vim-erlang-runtime'
 
-" Autocompletion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'copy/deoplete-ocaml', { 'for': 'ocaml' }
+" Autocomplete
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-vim-lsp'
+
+" LSP
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
 
 " Lint
 Plug 'neomake/neomake'
 
 call plug#end()
 
+" Autocomplete
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
+set shortmess+=c
+inoremap <c-c> <ESC>
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+if executable('ocamllsp')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'ocamllsp',
+        \ 'cmd': {server_info->['ocamllsp']},
+        \ 'whitelist': ['ocaml'],
+        \ })
+endif
+
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = 'minimal'
 let g:float_preview#docked = 0
-
-" Deoplete
-" other completion sources suggested to disable
-let g:deoplete#ignore_sources = {}
-let g:deoplete#ignore_sources.ocaml = ['buffer', 'around', 'member', 'tag']
-" no delay before completion
-let g:deoplete#auto_complete_delay = 0
-let g:deoplete#enable_at_startup = 1
-inoremap <silent><expr> <TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-set completeopt-=preview
-
-" Ultisnips
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Basic Setup
 let mapleader = "\<space>"
@@ -129,7 +124,7 @@ if has('termguicolors')
 endif
 
 set background=dark
-colorscheme edge
+colorscheme gruvbox-material
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -151,13 +146,7 @@ map <C-n> :NERDTreeToggle<CR>
 let g:gitgutter_sign_added          = '│'
 let g:gitgutter_sign_modified       = '│'
 let g:gitgutter_sign_removed = '│'
-
-if has('nvim-0.3.2') || has("patch-8.1.0360")
-  set diffopt+=internal,algorithm:patience
-endif
-
-" polyglot
-let g:polyglot_disabled = ['ocaml', 'rust', 'racket', 'erlang']
+set diffopt+=internal,filler,algorithm:histogram
 
 " FZF
 let g:fzf_layout = { 'window': 'enew' }

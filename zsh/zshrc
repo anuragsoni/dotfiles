@@ -8,7 +8,8 @@ if ! zgen saved; then
 
   zgen oh-my-zsh plugins/asdf
 
-  zgen load woefe/git-prompt.zsh
+  zgen load mafredri/zsh-async
+  zgen load sindresorhus/pure
 
   zgen load ael-code/zsh-colored-man-pages
   zgen load zdharma/fast-syntax-highlighting
@@ -20,3 +21,11 @@ fi
 
 # opam configuration
 test -r /home/asoni/.opam/opam-init/init.zsh && . /home/asoni/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# Kitty
+alias icat="kitty +kitten icat"
+alias d="kitty +kitten diff"
+alias gdiff="git difftool --no-symlinks --dir-diff"
+kitty + complete setup zsh | source /dev/stdin
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
