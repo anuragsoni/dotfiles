@@ -25,7 +25,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Nicer colors
-Plug 'sainnhe/gruvbox-material'
+Plug 'gruvbox-community/gruvbox'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -124,7 +124,7 @@ if has('termguicolors')
 endif
 
 set background=dark
-colorscheme gruvbox-material
+colorscheme gruvbox
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
