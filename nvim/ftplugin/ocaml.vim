@@ -1,16 +1,12 @@
-map <buffer> <LocalLeader>y :MerlinYankLatestType<return>
-nmap <LocalLeader>r <Plug>(MerlinRename)
-
-function! ExtractLocalOpen()
-    let mod = expand("<cword>")
-    execute "normal! Vap\<esc>"
-    execute "'<,'>s/" . mod. "\.//g"
-    '<
-    execute "normal! olet open " . mod . " in\<esc>"
-  endfunction
-nmap <LocalLeader>o :call ExtractLocalOpen()<cr>
-
-" dune
-nmap <LocalLeader>dt :! dune runtest<cr>
-nmap <LocalLeader>dp :! dune promote<cr>
-nmap <LocalLeader>db :! dune build<cr>
+call ale#linter#Define('ocaml', {
+      \ 'name': 'ocaml-lsp',
+      \ 'lsp': 'stdio',
+      \ 'executable': 'ocamllsp',
+      \ 'command': '%e',
+      \ 'project_root': function('ale#handlers#ols#GetProjectRoot')
+      \ })
+nmap <silent><buffer> gd  <Plug>(ale_go_to_definition_in_split)<CR>
+nnoremap <silent> <LocalLeader>gb <C-O>
+nmap , <LocalLeader>
+vmap , <LocalLeader>
+nmap <silent><buffer> <LocalLeader>hh <Plug>(ale_hover)<CR>

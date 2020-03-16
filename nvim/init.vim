@@ -26,41 +26,22 @@ Plug 'junegunn/fzf.vim'
 
 " Nicer colors
 Plug 'morhetz/gruvbox'
+Plug 'icymind/NeoSolarized'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
 Plug 'ocaml/vim-ocaml'
 
 " Autocomplete
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-vim-lsp'
-
-" LSP
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Lint
-Plug 'neomake/neomake'
+Plug 'dense-analysis/ale'
 
 call plug#end()
 
 " Autocomplete
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect
-set shortmess+=c
-inoremap <c-c> <ESC>
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-if executable('ocamllsp')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'ocamllsp',
-        \ 'cmd': {server_info->['ocamllsp']},
-        \ 'whitelist': ['ocaml'],
-        \ })
-endif
+let g:deoplete#enable_at_startup = 1
 
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = 'minimal'
@@ -124,7 +105,8 @@ if has('termguicolors')
 endif
 
 set background=light
-colorscheme gruvbox
+let g:neosolarized_contrast = "high"
+colorscheme NeoSolarized
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -143,6 +125,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 map <C-n> :NERDTreeToggle<CR>
 
 " Git markers
+let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_sign_added          = '│'
 let g:gitgutter_sign_modified       = '│'
 let g:gitgutter_sign_removed = '│'
@@ -173,39 +156,3 @@ augroup vimrc-ocaml-autopairs
   autocmd FileType ocaml let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
   autocmd FileType jbuild let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
 augroup END
-
-" Neomake
-call neomake#configure#automake('w')
-
-" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-let s:opam_share_dir = system("opam config var share")
-let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
-
-let s:opam_configuration = {}
-
-function! OpamConfOcpIndent()
-  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-endfunction
-let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
-
-function! OpamConfOcpIndex()
-  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-endfunction
-let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
-
-function! OpamConfMerlin()
-  let l:dir = s:opam_share_dir . "/merlin/vim"
-  execute "set rtp+=" . l:dir
-endfunction
-let s:opam_configuration['merlin'] = function('OpamConfMerlin')
-
-let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-for tool in s:opam_packages
-  " Respect package order (merlin should be after ocp-index)
-  if count(s:opam_available_tools, tool) > 0
-    call s:opam_configuration[tool]()
-  endif
-endfor
-" ## end of OPAM user-setup addition for vim / base ## keep this line
