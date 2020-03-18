@@ -26,7 +26,7 @@ Plug 'junegunn/fzf.vim'
 
 " Nicer colors
 Plug 'morhetz/gruvbox'
-Plug 'icymind/NeoSolarized'
+Plug 'lifepillar/vim-solarized8'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -42,6 +42,8 @@ call plug#end()
 
 " Autocomplete
 let g:deoplete#enable_at_startup = 1
+inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = 'minimal'
@@ -105,8 +107,8 @@ if has('termguicolors')
 endif
 
 set background=light
-let g:neosolarized_contrast = "high"
-colorscheme NeoSolarized
+let g:solarized_italics=0
+colorscheme solarized8
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
