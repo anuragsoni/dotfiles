@@ -40,6 +40,8 @@ Plug 'dense-analysis/ale'
 
 call plug#end()
 
+let g:airline_powerline_fonts = 1
+
 " Autocomplete
 let g:deoplete#enable_at_startup = 1
 inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"

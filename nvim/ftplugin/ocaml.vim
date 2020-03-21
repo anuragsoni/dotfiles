@@ -5,6 +5,7 @@ call ale#linter#Define('ocaml', {
       \ 'command': '%e',
       \ 'project_root': function('ale#handlers#ols#GetProjectRoot')
       \ })
+let b:ale_fixers = ['ocamlformat']
 nmap <silent><buffer> gd  <Plug>(ale_go_to_definition_in_split)<CR>
 nnoremap <silent> <LocalLeader>gb <C-O>
 nmap , <LocalLeader>
