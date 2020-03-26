@@ -40,7 +40,7 @@ Plug 'dense-analysis/ale'
 
 call plug#end()
 
-let g:airline_powerline_fonts = 1
+let g:airline_symbols_ascii = 1
 
 " Autocomplete
 let g:deoplete#enable_at_startup = 1
@@ -108,7 +108,7 @@ if has('termguicolors')
   set termguicolors
 endif
 
-set background=light
+set background=dark
 let g:solarized_italics=0
 colorscheme solarized8
 
