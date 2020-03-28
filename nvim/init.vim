@@ -31,6 +31,7 @@ Plug 'lifepillar/vim-solarized8'
 " Language plugins
 Plug 'sbdchd/neoformat'
 Plug 'ocaml/vim-ocaml'
+Plug 'cespare/vim-toml'
 
 " Autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
