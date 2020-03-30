@@ -32,6 +32,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'sbdchd/neoformat'
 Plug 'ocaml/vim-ocaml'
 Plug 'cespare/vim-toml'
+Plug 'plasticboy/vim-markdown'
 
 " Autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -161,3 +162,5 @@ augroup vimrc-ocaml-autopairs
   autocmd FileType ocaml let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
   autocmd FileType jbuild let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
 augroup END
+
+let g:vim_markdown_folding_disabled = 1
