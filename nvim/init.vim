@@ -25,8 +25,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
 Plug 'junegunn/fzf.vim'
 
 " Nicer colors
-Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-solarized8'
+Plug 'chriskempson/base16-vim'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -51,7 +51,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = 'minimal'
-let g:float_preview#docked = 0
 
 " Basic Setup
 let mapleader = "\<space>"
@@ -155,12 +154,5 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
-
-" Autopairs
-augroup vimrc-ocaml-autopairs
-  autocmd!
-  autocmd FileType ocaml let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
-  autocmd FileType jbuild let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
-augroup END
 
 let g:vim_markdown_folding_disabled = 1
