@@ -26,7 +26,6 @@ Plug 'junegunn/fzf.vim'
 
 " Nicer colors
 Plug 'lifepillar/vim-solarized8'
-Plug 'chriskempson/base16-vim'
 
 " Language plugins
 Plug 'sbdchd/neoformat'
@@ -156,3 +155,10 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 let g:vim_markdown_folding_disabled = 1
+
+" Autopairs
+augroup vimrc-ocaml-autopairs
+  autocmd!
+  autocmd FileType ocaml let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
+  autocmd FileType dune let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
+augroup END

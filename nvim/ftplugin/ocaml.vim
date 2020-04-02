@@ -11,10 +11,3 @@ nnoremap <silent> <LocalLeader>gb <C-O>
 nmap , <LocalLeader>
 vmap , <LocalLeader>
 nmap <silent><buffer> <LocalLeader>hh <Plug>(ale_hover)<CR>
-
-" Autopairs
-augroup vimrc-ocaml-autopairs
-  autocmd!
-  autocmd FileType ocaml let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
-  autocmd FileType dune let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
-augroup END
