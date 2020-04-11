@@ -108,7 +108,7 @@ if has('termguicolors')
   set termguicolors
 endif
 
-set background=dark
+set background=light
 let g:solarized_italics=0
 colorscheme solarized8
 
