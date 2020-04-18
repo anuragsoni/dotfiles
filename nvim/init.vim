@@ -29,6 +29,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'chriskempson/base16-vim'
 
 " Language plugins
+Plug 'dag/vim-fish', { 'for': 'fish' }
 Plug 'sbdchd/neoformat'
 Plug 'ocaml/vim-ocaml'
 Plug 'cespare/vim-toml'
