@@ -64,3 +64,5 @@
 
 [log]
   decorate = full
+[pager]
+	branch = false
