@@ -10,8 +10,8 @@
     ~/.gitignore:
     ~/.config/nvim:
     ~/.tmux.conf:
-    ~/.config/fish/functions: fish/functions
-    ~/.config/fish/config.fish: fish/config.fish
+    ~/.zshrc: zsh/zshrc
+    ~/.zprofile: zsh/zprofile
 
 - shell:
     - git submodule sync --recursive
