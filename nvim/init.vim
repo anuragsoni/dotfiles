@@ -50,8 +50,6 @@ let g:airline_symbols_ascii = 1
 
 " Autocomplete
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#ignore_sources = {}
-let g:deoplete#ignore_sources.ocaml = ['buffer', 'around', 'member', 'tag']
 inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
@@ -117,7 +115,7 @@ endif
 
 set background=dark
 let g:solarized_italics=0
-colorscheme solarized8
+colorscheme base16-tomorrow-night
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
