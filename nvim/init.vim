@@ -25,8 +25,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
 Plug 'junegunn/fzf.vim'
 
 " Nicer colors
-Plug 'lifepillar/vim-solarized8'
-Plug 'chriskempson/base16-vim'
+Plug 'morhetz/gruvbox'
 
 " Language plugins
 Plug 'LnL7/vim-nix'
@@ -114,8 +113,7 @@ if has('termguicolors')
 endif
 
 set background=dark
-let g:solarized_italics=0
-colorscheme base16-tomorrow-night
+colorscheme gruvbox
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·

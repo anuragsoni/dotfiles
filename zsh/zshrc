@@ -17,4 +17,4 @@ if ! zgen saved; then
 fi
 
 # opam configuration
-[[ ! -r /home/asoni/.opam/opam-init/init.zsh ]] || source /home/asoni/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+test -r /home/asoni/.opam/opam-init/init.zsh && . /home/asoni/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
