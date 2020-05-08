@@ -38,7 +38,6 @@ Plug 'plasticboy/vim-markdown'
 
 " Autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'copy/deoplete-ocaml'
 
 " Lint
 Plug 'dense-analysis/ale'

@@ -4,15 +4,13 @@ if ! zgen saved; then
 
   zgen oh-my-zsh
 
-  zgen oh-my-zsh plugins/asdf
+  zgen oh-my-zsh plugins/command-not-found
 
   zgen load agkozak/agkozak-zsh-prompt
 
-  zgen load ael-code/zsh-colored-man-pages
   zgen load zdharma/fast-syntax-highlighting
   zgen load zdharma/history-search-multi-word
   zgen load zsh-users/zsh-autosuggestions
-  zgen load supercrabtree/k
   zgen save
 fi
 
