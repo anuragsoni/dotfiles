@@ -111,7 +111,7 @@ if has('termguicolors')
   set termguicolors
 endif
 
-set background=dark
+set background=light
 colorscheme gruvbox
 
 " show trailing spaces
