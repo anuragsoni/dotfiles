@@ -21,13 +21,13 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
 Plug 'junegunn/fzf.vim'
 
 " Nicer colors
 Plug 'morhetz/gruvbox'
 
 " Language plugins
+Plug 'derekwyatt/vim-scala'
 Plug 'LnL7/vim-nix'
 Plug 'elixir-editors/vim-elixir'
 Plug 'dag/vim-fish', { 'for': 'fish' }
