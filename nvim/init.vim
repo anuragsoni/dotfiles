@@ -105,9 +105,23 @@ if has('termguicolors')
 endif
 
 set background=dark
-colorscheme gruvbox8
+let g:seoul256_background = 235
+colorscheme seoul256
 
 " Statusline
+
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK | ' : printf(
+    \   '%dW %dE | ',
+    \   all_non_errors,
+    \   all_errors
+    \)
+  endfunctio
 
 function! StatuslineMode()
   let l:mode=mode()
@@ -144,6 +158,7 @@ set statusline+=\|
 set statusline+=\ 
 set statusline+=%{FugitiveHead()}
 set statusline+=%=
+set statusline+=%{LinterStatus()}
 set statusline+=%y
 set statusline+=\ 
 set statusline+=\|
