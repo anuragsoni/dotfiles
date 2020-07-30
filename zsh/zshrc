@@ -1,0 +1,17 @@
+source "$HOME/.zgen/zgen.zsh"
+
+if ! zgen saved; then
+
+  zgen oh-my-zsh
+
+  zgen oh-my-zsh plugins/command-not-found
+
+  zgen load agkozak/agkozak-zsh-prompt
+
+  zgen load zdharma/fast-syntax-highlighting
+  zgen load zsh-users/zsh-autosuggestions
+  zgen save
+fi
+
+# opam configuration
+test -r /Users/asoni/.opam/opam-init/init.zsh && . /Users/asoni/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

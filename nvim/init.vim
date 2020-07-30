@@ -14,23 +14,18 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 " Utilities
-Plug 'edkolev/tmuxline.vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'junegunn/fzf.vim'
 
 " Nicer colors
-Plug 'morhetz/gruvbox'
+Plug 'lifepillar/vim-gruvbox8'
+Plug 'junegunn/seoul256.vim'
+Plug 'arzg/vim-colors-xcode'
 
 " Language plugins
-Plug 'derekwyatt/vim-scala'
-Plug 'LnL7/vim-nix'
 Plug 'elixir-editors/vim-elixir'
-Plug 'dag/vim-fish', { 'for': 'fish' }
 Plug 'sbdchd/neoformat'
 Plug 'ocaml/vim-ocaml'
 Plug 'cespare/vim-toml'
@@ -43,8 +38,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'dense-analysis/ale'
 
 call plug#end()
-
-let g:airline_symbols_ascii = 1
 
 " Autocomplete
 let g:deoplete#enable_at_startup = 1
@@ -111,8 +104,62 @@ if has('termguicolors')
   set termguicolors
 endif
 
-set background=light
-colorscheme gruvbox
+set background=dark
+colorscheme gruvbox8
+
+" Statusline
+
+function! StatuslineMode()
+  let l:mode=mode()
+  if l:mode==#"n"
+    return "Normal"
+  elseif l:mode==?"v"
+    return "Visual"
+  elseif l:mode==#"i"
+    return "Insert"
+  elseif l:mode==#"R"
+    return "Replace"
+  elseif l:mode==?"s"
+    return "Select"
+  elseif l:mode==#"t"
+    return "Terminal"
+  elseif l:mode==#"c"
+    return "Command"
+  elseif l:mode==#"!"
+    return "Shell"
+  endif
+endfunction
+
+set laststatus=2
+set statusline=
+set statusline+=\ 
+set statusline+=%{StatuslineMode()}
+set statusline+=\ 
+set statusline+=\|
+set statusline+=\ %f
+set statusline+=%m
+set statusline+=%r
+set statusline+=\ 
+set statusline+=\|
+set statusline+=\ 
+set statusline+=%{FugitiveHead()}
+set statusline+=%=
+set statusline+=%y
+set statusline+=\ 
+set statusline+=\|
+set statusline+=\ 
+set statusline+=%{strlen(&fenc)?&fenc:'no-ft'}
+set statusline+=\ 
+set statusline+=\|
+set statusline+=\ 
+set statusline+=%2p%%
+set statusline+=\ 
+set statusline+=\|
+set statusline+=\ 
+set statusline+=%l
+set statusline+=:
+set statusline+=%L
+set statusline+=\ 
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -137,25 +184,6 @@ let g:gitgutter_sign_added          = '│'
 let g:gitgutter_sign_modified       = '│'
 let g:gitgutter_sign_removed = '│'
 set diffopt+=internal,filler,algorithm:histogram
-
-" FZF
-let g:fzf_layout = { 'window': 'enew' }
-let g:fzf_layout = { 'window': '-tabnew' }
-let g:fzf_layout = { 'window': '10new' }
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
 
 let g:vim_markdown_folding_disabled = 1
 
