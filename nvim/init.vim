@@ -22,7 +22,6 @@ Plug 'scrooloose/nerdtree'
 " Nicer colors
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'junegunn/seoul256.vim'
-Plug 'arzg/vim-colors-xcode'
 
 " Language plugins
 Plug 'elixir-editors/vim-elixir'
@@ -101,7 +100,7 @@ endif
 if has('termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
+  " set termguicolors
 endif
 
 set background=dark
