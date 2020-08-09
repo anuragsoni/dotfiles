@@ -6,27 +6,21 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Defaults that most people can agree on
-Plug 'tpope/vim-sensible'
-
 " Git utilities
-Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 
 " Utilities
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
-Plug 'scrooloose/nerdtree'
 Plug '/opt/local/share/fzf/vim'
 Plug 'junegunn/fzf.vim'
 
 " Nicer colors
 Plug 'lifepillar/vim-gruvbox8'
-Plug 'junegunn/seoul256.vim'
 
 " Language plugins
-Plug 'elixir-editors/vim-elixir'
 Plug 'sbdchd/neoformat'
 Plug 'ocaml/vim-ocaml'
 Plug 'cespare/vim-toml'
@@ -40,6 +34,7 @@ Plug 'dense-analysis/ale'
 
 call plug#end()
 
+let g:ale_hover_cursor=0
 " Autocomplete
 let g:deoplete#enable_at_startup = 1
 inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -106,8 +101,9 @@ if has('termguicolors')
 endif
 
 set background=dark
-let g:seoul256_background = 235
-colorscheme seoul256
+" let g:seoul256_background = 235
+let g:gruvbox_italicize_strings = 0
+colorscheme gruvbox8
 
 " Statusline
 
@@ -198,17 +194,6 @@ set cursorline
 set showcmd
 set lazyredraw
 
-" Nerdtree settings
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-map <C-n> :NERDTreeToggle<CR>
-
-" Git markers
-let g:gitgutter_override_sign_column_highlight = 0
-let g:gitgutter_sign_added          = '│'
-let g:gitgutter_sign_modified       = '│'
-let g:gitgutter_sign_removed = '│'
-set diffopt+=internal,filler,algorithm:histogram
-
 let g:vim_markdown_folding_disabled = 1
 
 " Autopairs
@@ -217,35 +202,3 @@ augroup vimrc-ocaml-autopairs
   autocmd FileType ocaml let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
   autocmd FileType dune let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
 augroup END
-" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-let s:opam_share_dir = system("opam config var share")
-let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
-
-let s:opam_configuration = {}
-
-function! OpamConfOcpIndent()
-  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-endfunction
-let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
-
-function! OpamConfOcpIndex()
-  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-endfunction
-let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
-
-function! OpamConfMerlin()
-  let l:dir = s:opam_share_dir . "/merlin/vim"
-  execute "set rtp+=" . l:dir
-endfunction
-let s:opam_configuration['merlin'] = function('OpamConfMerlin')
-
-let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-for tool in s:opam_packages
-  " Respect package order (merlin should be after ocp-index)
-  if count(s:opam_available_tools, tool) > 0
-    call s:opam_configuration[tool]()
-  endif
-endfor
-" ## end of OPAM user-setup addition for vim / base ## keep this line

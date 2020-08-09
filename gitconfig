@@ -66,3 +66,5 @@
   decorate = full
 [pager]
 	branch = false
+[init]
+	defaultBranch = main

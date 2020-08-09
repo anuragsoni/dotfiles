@@ -3,3 +3,9 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+export FZF_BASE=/opt/local/share/fzf
+
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
