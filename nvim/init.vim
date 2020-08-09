@@ -11,6 +11,7 @@ Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 
 " Utilities
+Plug 'tpope/vim-sensible'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
@@ -27,21 +28,23 @@ Plug 'cespare/vim-toml'
 Plug 'plasticboy/vim-markdown'
 
 " Autocomplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" Lint
-Plug 'dense-analysis/ale'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 call plug#end()
 
-let g:ale_hover_cursor=0
 " Autocomplete
-let g:deoplete#enable_at_startup = 1
-inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-let g:tmuxline_powerline_separators = 0
-let g:tmuxline_preset = 'minimal'
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'whitelist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
 
 " Basic Setup
 let mapleader = "\<space>"
@@ -108,12 +111,11 @@ colorscheme gruvbox8
 " Statusline
 
 function! LinterStatus() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = lsp#get_buffer_diagnostics_counts()["error"]
+  let l:all_non_errors = lsp#get_buffer_diagnostics_counts()["warning"]
+  let l:total = all_errors + all_non_errors
 
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-
-  return l:counts.total == 0 ? 'OK | ' : printf(
+  return l:total == 0 ? 'OK | ' : printf(
   \   '%dW %dE | ',
   \   all_non_errors,
   \   all_errors

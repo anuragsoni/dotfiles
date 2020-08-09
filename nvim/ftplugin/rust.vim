@@ -1,2 +1,8 @@
-let b:ale_linters = {'rust': ['rls']}
-let b:ale_fixers = ['rustfmt']
+if executable('rls')
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'rls',
+      \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+      \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+      \ 'whitelist': ['rust'],
+      \ })
+endif
