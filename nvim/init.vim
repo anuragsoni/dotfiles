@@ -1,3 +1,11 @@
+if executable('opam')
+  let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+  let g:ocamlmerlin =  g:opamshare . "/merlin/vim"
+  if isdirectory(g:ocamlmerlin)
+    let g:found_merlin = 1
+  endif
+endif
+
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
     silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -6,45 +14,36 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Git utilities
-Plug 'mhinz/vim-signify'
-Plug 'tpope/vim-fugitive'
-
-" Utilities
 Plug 'tpope/vim-sensible'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
-Plug '/opt/local/share/fzf/vim'
-Plug 'junegunn/fzf.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
-" Nicer colors
 Plug 'lifepillar/vim-gruvbox8'
 
-" Language plugins
 Plug 'sbdchd/neoformat'
 Plug 'ocaml/vim-ocaml'
 Plug 'cespare/vim-toml'
 Plug 'plasticboy/vim-markdown'
 
-" Autocomplete
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-file.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'neomake/neomake'
+Plug 'lifepillar/vim-mucomplete'
+
+if g:found_merlin
+  Plug g:ocamlmerlin, { 'for': 'ocaml' }
+endif
 
 call plug#end()
 
 " Autocomplete
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-    \ 'name': 'file',
-    \ 'whitelist': ['*'],
-    \ 'priority': 10,
-    \ 'completor': function('asyncomplete#sources#file#completor')
-    \ }))
+set shortmess+=c
+set completeopt+=menuone
+
+" Linter
+call neomake#configure#automake('nw', 750)
 
 " Basic Setup
 let mapleader = "\<space>"
@@ -54,14 +53,7 @@ let g:maplocalleader = ","
 set tabstop=2
 set shiftwidth=2
 set expandtab
-set updatetime=100
-
-" Annoying temporary files
-set backupdir=/tmp//,.
-set directory=/tmp//,.
-if v:version >= 703
-  set undodir=/tmp//,.
-endif
+set mouse=a
 
 " Prevent vim from automatically commenting lines
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -77,7 +69,6 @@ set ignorecase
 set smartcase
 set wrapscan
 
-set mouse=a
 if exists('&inccommand')
   set inccommand=nosplit
 endif
@@ -100,27 +91,14 @@ endif
 if has('termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  " set termguicolors
+  set termguicolors
 endif
 
 set background=dark
-" let g:seoul256_background = 235
 let g:gruvbox_italicize_strings = 0
 colorscheme gruvbox8
 
 " Statusline
-
-function! LinterStatus() abort
-  let l:all_errors = lsp#get_buffer_diagnostics_counts()["error"]
-  let l:all_non_errors = lsp#get_buffer_diagnostics_counts()["warning"]
-  let l:total = all_errors + all_non_errors
-
-  return l:total == 0 ? 'OK | ' : printf(
-  \   '%dW %dE | ',
-  \   all_non_errors,
-  \   all_errors
-  \)
-endfunction
 
 function! GitBranch()
   if !exists("b:git_dir")
@@ -160,28 +138,13 @@ set statusline+=\ %f
 set statusline+=%m
 set statusline+=%r
 set statusline+=%{GitBranch()}
-" set statusline+=\ 
-" set statusline+=\|
-" set statusline+=\ 
-" set statusline+=%{FugitiveHead()}
-set statusline+=%=
-set statusline+=%{LinterStatus()}
-set statusline+=%y
+set statusline+=\ 
+set statusline+=\|
+set statusline+=\ %y
 set statusline+=\ 
 set statusline+=\|
 set statusline+=\ 
 set statusline+=%{strlen(&fenc)?&fenc:'no-ft'}
-set statusline+=\ 
-set statusline+=\|
-set statusline+=\ 
-set statusline+=%2p%%
-set statusline+=\ 
-set statusline+=\|
-set statusline+=\ 
-set statusline+=%l
-set statusline+=:
-set statusline+=%L
-set statusline+=\ 
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
