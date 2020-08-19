@@ -1,8 +1,18 @@
+let g:python3_host_prog='/Users/asoni/Code/Python/neovim/bin/python'
+
 if executable('opam')
   let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
   let g:ocamlmerlin =  g:opamshare . "/merlin/vim"
+  let g:ocamlocpindent = g:opamshare . "/ocp-indent/vim"
   if isdirectory(g:ocamlmerlin)
     let g:found_merlin = 1
+  else
+    let g:found_merlin = 0
+  endif
+  if isdirectory(g:ocamlocpindent)
+    let g:found_ocpindent = 1
+  else
+    let g:found_ocpindent = 0
   endif
 endif
 
@@ -18,20 +28,25 @@ Plug 'tpope/vim-sensible'
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 Plug 'ctrlpvim/ctrlp.vim'
 
-Plug 'lifepillar/vim-gruvbox8'
+Plug 'lifepillar/vim-solarized8'
 
 Plug 'sbdchd/neoformat'
 Plug 'ocaml/vim-ocaml'
+Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
 Plug 'cespare/vim-toml'
 Plug 'plasticboy/vim-markdown'
 
 Plug 'neomake/neomake'
 Plug 'lifepillar/vim-mucomplete'
 
+if g:found_ocpindent
+  Plug g:ocamlocpindent, { 'for': 'ocaml' }
+endif
 if g:found_merlin
   Plug g:ocamlmerlin, { 'for': 'ocaml' }
 endif
@@ -54,6 +69,7 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 set mouse=a
+set updatetime=100
 
 " Prevent vim from automatically commenting lines
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -89,14 +105,11 @@ endif
 
 " UI
 if has('termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
 
-set background=dark
-let g:gruvbox_italicize_strings = 0
-colorscheme gruvbox8
+set background=light
+colorscheme solarized8
 
 " Statusline
 
@@ -138,16 +151,10 @@ set statusline+=\ %f
 set statusline+=%m
 set statusline+=%r
 set statusline+=%{GitBranch()}
-set statusline+=\ 
-set statusline+=\|
-set statusline+=\ %y
-set statusline+=\ 
-set statusline+=\|
-set statusline+=\ 
-set statusline+=%{strlen(&fenc)?&fenc:'no-ft'}
 
 " show trailing spaces
-set list listchars=tab:\ \ ,trail:·
+set list
+set listchars=tab:»-,extends:»,precedes:«,trail:.
 
 " better splits
 set splitbelow
@@ -167,3 +174,15 @@ augroup vimrc-ocaml-autopairs
   autocmd FileType ocaml let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
   autocmd FileType dune let b:AutoPairs = {'(':')', '[':']', '{':'}','"':'"'}
 augroup END
+
+" Git utils
+let g:signify_sign_add    = '┃'
+let g:signify_sign_change = '┃'
+let g:signify_sign_delete = '•'
+
+let g:signify_sign_show_count = 0 " Don’t show the number of deleted lines.
+nnoremap <leader>gp :SignifyHunkDiff<cr>
+nmap <leader>gj <plug>(signify-next-hunk)
+nmap <leader>gk <plug>(signify-prev-hunk)
+
+set diffopt+=internal,filler,algorithm:histogram
