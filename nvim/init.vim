@@ -25,6 +25,7 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'tpope/vim-sensible'
+Plug 'Yggdroot/indentLine'
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -34,6 +35,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'lifepillar/vim-solarized8'
+Plug 'lifepillar/vim-gruvbox8'
 
 Plug 'sbdchd/neoformat'
 Plug 'ocaml/vim-ocaml'
@@ -109,7 +111,12 @@ if has('termguicolors')
 endif
 
 set background=light
-colorscheme solarized8
+let g:gruvbox_italicize_strings = 0
+let g:gruvbox_italics = 0
+let g:gruvbox_bold = 1
+let g:gruvbox_plugin_hi_groups = 1
+let g:gruvbox_filetype_hi_groups = 1
+colorscheme gruvbox8
 
 " Statusline
 
