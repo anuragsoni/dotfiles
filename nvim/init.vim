@@ -45,15 +45,21 @@ Plug 'plasticboy/vim-markdown'
 
 Plug 'neomake/neomake'
 Plug 'lifepillar/vim-mucomplete'
+Plug 'natebosch/vim-lsc'
 
-if g:found_ocpindent
-  Plug g:ocamlocpindent, { 'for': 'ocaml' }
-endif
-if g:found_merlin
-  Plug g:ocamlmerlin, { 'for': 'ocaml' }
-endif
+" if g:found_ocpindent
+"   Plug g:ocamlocpindent, { 'for': 'ocaml' }
+" endif
+" if g:found_merlin
+"   Plug g:ocamlmerlin, { 'for': 'ocaml' }
+" endif
 
 call plug#end()
+
+" LSP
+let g:lsc_auto_map = v:true
+let g:lsc_server_commands = {'ocaml': 'ocamllsp', 'rust': 'rust-analyzer'}
+let g:lsc_enable_diagnostics = v:false
 
 " Autocomplete
 set shortmess+=c
