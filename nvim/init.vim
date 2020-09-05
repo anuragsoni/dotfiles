@@ -45,7 +45,10 @@ Plug 'plasticboy/vim-markdown'
 
 Plug 'neomake/neomake'
 Plug 'lifepillar/vim-mucomplete'
-Plug 'natebosch/vim-lsc'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 " if g:found_ocpindent
 "   Plug g:ocamlocpindent, { 'for': 'ocaml' }
@@ -57,9 +60,27 @@ Plug 'natebosch/vim-lsc'
 call plug#end()
 
 " LSP
-let g:lsc_auto_map = v:true
-let g:lsc_server_commands = {'ocaml': 'ocamllsp', 'rust': 'rust-analyzer'}
-let g:lsc_enable_diagnostics = v:false
+set hidden
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rust-analyzer'],
+    \ 'ocaml': ['ocamllsp']
+    \ }
+function SetupLspKeybindings()
+  nmap <silent>K <Plug>(lcn-hover)
+  nmap <silent>gd <Plug>(lcn-definition)
+  nmap <silent>lt <Plug>(lcn-type-definition)
+  nmap <silent>lm <Plug>(lcn-menu)
+  nmap <silent>la <Plug>(lcn-code-action)
+  nmap <silent>lca <Plug>(lcn-code-lens-action)
+  nmap <silent>lh <Plug>(lcn-highlight)
+  nmap <silent>lee <Plug>(lcn-explain-error)
+  nmap <silent>lf <Plug>(lcn-format)
+  nmap <silent>lr <Plug>(lcn-rename)
+endfunction()
+augroup LSP
+  autocmd!
+  autocmd FileType rust,ocaml call SetupLspKeybindings()
+augroup END
 
 " Autocomplete
 set shortmess+=c
