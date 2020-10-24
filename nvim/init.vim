@@ -27,14 +27,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'Yggdroot/indentLine'
 
+Plug 'preservim/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
-Plug 'ctrlpvim/ctrlp.vim'
 
-Plug 'lifepillar/vim-solarized8'
 Plug 'lifepillar/vim-gruvbox8'
 
 Plug 'sbdchd/neoformat'
@@ -42,6 +41,9 @@ Plug 'ocaml/vim-ocaml'
 Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
 Plug 'cespare/vim-toml'
 Plug 'plasticboy/vim-markdown'
+Plug 'derekwyatt/vim-scala'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
 
 Plug 'neomake/neomake'
 Plug 'lifepillar/vim-mucomplete'
@@ -81,6 +83,10 @@ augroup LSP
   autocmd!
   autocmd FileType rust,ocaml call SetupLspKeybindings()
 augroup END
+
+" NERDTree
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Autocomplete
 set shortmess+=c
@@ -143,7 +149,7 @@ let g:gruvbox_italics = 0
 let g:gruvbox_bold = 1
 let g:gruvbox_plugin_hi_groups = 1
 let g:gruvbox_filetype_hi_groups = 1
-colorscheme gruvbox8
+colorscheme gruvbox8_soft
 
 " Statusline
 
@@ -220,3 +226,18 @@ nmap <leader>gj <plug>(signify-next-hunk)
 nmap <leader>gk <plug>(signify-prev-hunk)
 
 set diffopt+=internal,filler,algorithm:histogram
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
