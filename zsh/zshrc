@@ -1,17 +1,44 @@
-source "$HOME/.zgen/zgen.zsh"
+export ZSH=$HOME/.dotfiles/zsh
 
-if ! zgen saved; then
+# Setup fpath by looking for zsh files in all nested folders
+for dir ($ZSH/*) if [ -d $dir ]; then fpath=($dir $fpath); fi;
 
-  zgen oh-my-zsh
+export CLICOLOR=1
 
-  zgen oh-my-zsh plugins/fzf
+# Add colors to ls
+alias ls="ls -GF"
+alias ll="ls -GF -l"
+alias la="ls -la -GF"
 
-  zgen load agkozak/agkozak-zsh-prompt
+# History
+HISTSIZE=10000
+SAVEHIST=10000
+setopt append_history
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_find_no_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt hist_verify
+setopt inc_append_history
+setopt share_history
 
-  zgen load zdharma/fast-syntax-highlighting
-  zgen load zsh-users/zsh-autosuggestions
-  zgen save
-fi
+setopt autocd extendedglob nomatch notify
+bindkey -e
+
+autoload -Uz compinit
+compinit
+zstyle :compinstall filename '$HOME/.zshrc'
+zstyle ':completion:*' menu yes select
+# case insensitive match only when there are no case insensitive matches
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+# don't trigger completion if the pasted content has a tab
+zstyle ':completion:*' insert-tab pending
+
+autoload -Uz promptinit
+promptinit
+prompt pure
 
 # opam configuration
 test -r /Users/asoni/.opam/opam-init/init.zsh && . /Users/asoni/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
