@@ -39,6 +39,7 @@ Plug 'lifepillar/vim-gruvbox8'
 Plug 'sbdchd/neoformat'
 Plug 'ocaml/vim-ocaml'
 Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'cespare/vim-toml'
 Plug 'plasticboy/vim-markdown'
 Plug 'derekwyatt/vim-scala'
