@@ -40,5 +40,12 @@ autoload -Uz promptinit
 promptinit
 prompt pure
 
+autoload -Uz select-word-style
+select-word-style bash
+
 # opam configuration
 test -r /Users/asoni/.opam/opam-init/init.zsh && . /Users/asoni/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/asoni/.sdkman"
+[[ -s "/Users/asoni/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/asoni/.sdkman/bin/sdkman-init.sh"
