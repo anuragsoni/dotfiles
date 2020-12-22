@@ -1,5 +1,3 @@
-let g:python3_host_prog='/Users/asoni/Code/Python/neovim/bin/python'
-
 if executable('opam')
   let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
   let g:ocamlmerlin =  g:opamshare . "/merlin/vim"
@@ -39,7 +37,6 @@ Plug 'lifepillar/vim-gruvbox8'
 Plug 'sbdchd/neoformat'
 Plug 'ocaml/vim-ocaml'
 Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'cespare/vim-toml'
 Plug 'plasticboy/vim-markdown'
 Plug 'derekwyatt/vim-scala'
@@ -150,7 +147,7 @@ let g:gruvbox_italics = 0
 let g:gruvbox_bold = 1
 let g:gruvbox_plugin_hi_groups = 1
 let g:gruvbox_filetype_hi_groups = 1
-colorscheme gruvbox8_soft
+colorscheme gruvbox8_hard
 
 " Statusline
 
