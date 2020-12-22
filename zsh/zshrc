@@ -6,9 +6,9 @@ for dir ($ZSH/*) if [ -d $dir ]; then fpath=($dir $fpath); fi;
 export CLICOLOR=1
 
 # Add colors to ls
-alias ls="ls -GF"
-alias ll="ls -GF -l"
-alias la="ls -la -GF"
+alias ls="ls --color"
+alias ll="ls --color -l"
+alias la="ls -la --color"
 
 # History
 HISTSIZE=10000
@@ -52,8 +52,8 @@ bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 
 # opam configuration
-test -r /Users/asoni/.opam/opam-init/init.zsh && . /Users/asoni/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+test -r /home/asoni/.opam/opam-init/init.zsh && . /home/asoni/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/asoni/.sdkman"
-[[ -s "/Users/asoni/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/asoni/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR="/home/asoni/.sdkman"
+[[ -s "/home/asoni/.sdkman/bin/sdkman-init.sh" ]] && source "/home/asoni/.sdkman/bin/sdkman-init.sh"
