@@ -141,7 +141,7 @@ if has('termguicolors')
   set termguicolors
 endif
 
-set background=light
+set background=dark
 let g:gruvbox_italicize_strings = 0
 let g:gruvbox_italics = 0
 let g:gruvbox_bold = 1
