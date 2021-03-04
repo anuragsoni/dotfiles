@@ -1,19 +1,3 @@
-if executable('opam')
-  let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-  let g:ocamlmerlin =  g:opamshare . "/merlin/vim"
-  let g:ocamlocpindent = g:opamshare . "/ocp-indent/vim"
-  if isdirectory(g:ocamlmerlin)
-    let g:found_merlin = 1
-  else
-    let g:found_merlin = 0
-  endif
-  if isdirectory(g:ocamlocpindent)
-    let g:found_ocpindent = 1
-  else
-    let g:found_ocpindent = 0
-  endif
-endif
-
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
     silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -32,21 +16,26 @@ Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'lifepillar/vim-gruvbox8'
+Plug 'cormacrelf/vim-colors-github'
+Plug 'andreypopp/vim-colors-plain'
+Plug 'YorickPeterse/vim-paper'
+Plug 'ajgrf/parchment'
+Plug 'Lokaltog/vim-monotone'
 
 Plug 'sbdchd/neoformat'
 Plug 'ocaml/vim-ocaml'
 Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
 Plug 'cespare/vim-toml'
 Plug 'plasticboy/vim-markdown'
-Plug 'derekwyatt/vim-scala'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf'
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neomake/neomake'
-Plug 'nvim-lua/completion-nvim'
-Plug 'neovim/nvim-lspconfig'
+Plug 'lifepillar/vim-mucomplete'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 call plug#end()
 
@@ -54,12 +43,32 @@ call plug#end()
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" LSP
+set hidden
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rust-analyzer'],
+    \ 'ocaml': ['ocamllsp']
+    \ }
+function SetupLspKeybindings()
+  nmap <silent>K <Plug>(lcn-hover)
+  nmap <silent>gd <Plug>(lcn-definition)
+  nmap <silent>lt <Plug>(lcn-type-definition)
+  nmap <silent>lm <Plug>(lcn-menu)
+  nmap <silent>la <Plug>(lcn-code-action)
+  nmap <silent>lca <Plug>(lcn-code-lens-action)
+  nmap <silent>lh <Plug>(lcn-highlight)
+  nmap <silent>lee <Plug>(lcn-explain-error)
+  nmap <silent>lf <Plug>(lcn-format)
+  nmap <silent>lr <Plug>(lcn-rename)
+endfunction()
+augroup LSP
+  autocmd!
+  autocmd FileType rust,ocaml call SetupLspKeybindings()
+augroup END
+
 " Autocomplete
 set shortmess+=c
 set completeopt=menu,menuone,noselect
-autocmd BufEnter * lua require'completion'.on_attach()
-imap <tab> <Plug>(completion_smart_tab)
-imap <s-tab> <Plug>(completion_smart_s_tab)
 
 " Linter
 call neomake#configure#automake('nw', 750)
@@ -109,16 +118,13 @@ endif
 
 " UI
 if has('termguicolors')
-  set termguicolors
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
 endif
 
-set background=dark
-let g:gruvbox_italicize_strings = 0
-let g:gruvbox_italics = 0
-let g:gruvbox_bold = 1
-let g:gruvbox_plugin_hi_groups = 1
-let g:gruvbox_filetype_hi_groups = 1
-colorscheme gruvbox8_hard
+set background=light
+colorscheme paper
 
 " Statusline
 
@@ -210,54 +216,3 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
-
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
-  highlight = {
-    enable = true
-  },
-  indent = {
-    enable = true
-  }
-}
-local nvim_lsp = require'lspconfig'
-
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  local opts = { noremap=true, silent=true }
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-
-  if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  elseif client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-  end
-
-  if client.resolved_capabilities.document_highlight then
-    vim.api.nvim_exec([[
-      hi LspReferenceRead cterm=bold ctermbg=red guibg='#363535'
-      hi LspReferenceText cterm=bold ctermbg=red guibg='#363535'
-      hi LspReferenceWrite cterm=bold ctermbg=red guibg='#363535'
-      augroup lsp_document_highlight
-        autocmd!
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]], false)
-  end
-end
-
-nvim_lsp.ocamllsp.setup{
-  root_dir = nvim_lsp.util.root_pattern('.merlin', 'dune-project'),
-  on_attach = on_attach
-}
-nvim_lsp.rust_analyzer.setup{ on_attach = on_attach }
-EOF
