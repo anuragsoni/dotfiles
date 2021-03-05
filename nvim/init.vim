@@ -16,11 +16,7 @@ Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'cormacrelf/vim-colors-github'
-Plug 'andreypopp/vim-colors-plain'
 Plug 'YorickPeterse/vim-paper'
-Plug 'ajgrf/parchment'
-Plug 'Lokaltog/vim-monotone'
 
 Plug 'sbdchd/neoformat'
 Plug 'ocaml/vim-ocaml'
